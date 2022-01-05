@@ -1,6 +1,19 @@
-import { all, takeLatest, select } from "redux-saga/effects";
+import { AxiosResponse } from "axios";
+import { all, takeLatest, select, call, put } from "redux-saga/effects";
 import { IState } from "../..";
-import { addProductToCardRequest } from "./action";
+
+import {
+  addProductToCardRequest,
+  addProductToCardSuccess,
+  addProductToCardFail,
+} from "./action";
+
+import api from "../../../services/api";
+
+interface IStockResponse {
+  id: number;
+  quantity: number;
+}
 
 function* checkProductStock({
   payload,
@@ -13,6 +26,19 @@ function* checkProductStock({
         ?.quantity ?? 0
     );
   });
+
+  const availableStockResponse: AxiosResponse<IStockResponse> = yield call(
+    api.get,
+    `stock/${product.id}`
+  );
+
+  if (availableStockResponse.data.quantity > currentQuantity) {
+    yield put(addProductToCardSuccess(product));
+  } else {
+    yield put(addProductToCardFail(product.id));
+  }
+
+  console.log(availableStockResponse);
 
   console.log(currentQuantity);
 }

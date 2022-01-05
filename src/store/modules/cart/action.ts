@@ -20,7 +20,7 @@ export const addProductToCardSuccess = (product: IProduct) => {
 
 export const addProductToCardFail = (productId: IProduct["id"]) => {
   return {
-    type: "ADD_PRODUCT_TO_CART",
+    type: "ADD_PRODUCT_TO_CART_FAIL",
     payload: {
       productId,
     },
