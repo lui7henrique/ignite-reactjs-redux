@@ -4,6 +4,7 @@ import { ICartState } from "./types";
 
 const INITIAL_STATE: ICartState = {
   items: [],
+  failedStockCheck: [],
 };
 
 export const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
@@ -26,7 +27,7 @@ export const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
       }
       case "ADD_PRODUCT_TO_CART_FAIL": {
         const { productId } = action.payload;
-        alert(`Produto ${productId} não está mais disponível`);
+        draft.failedStockCheck.push(productId);
 
         break;
       }
