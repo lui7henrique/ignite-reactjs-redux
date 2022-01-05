@@ -1,10 +1,6 @@
 import { createStore } from "redux";
+import { rootReducer } from "./modules/rootReducer";
 
-const store = createStore(() => {
-  return {
-    name: "Luiz Henrique",
-    age: 19,
-  };
-});
+const store = createStore(rootReducer);
 
 export default store;
