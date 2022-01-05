@@ -12,7 +12,7 @@ export const cart: Reducer<ICartState> = (state = INITIAL_STATE, action) => {
 
       return {
         ...state,
-        items: [...state.items, { ...product, quantity: 1 }],
+        items: [...state.items, { product, quantity: 1 }],
       };
     }
 
